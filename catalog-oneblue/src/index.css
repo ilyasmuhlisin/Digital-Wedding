@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #ffd700;
+  --bg: #0a0a0a;
+  --shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  font-size: 1.2rem;
+  font-family: "Work Sans", sans-serif;
+}
+
+.hero {
+  background-image: url("./assets/bgsquare.png"); /* Ganti dengan path ke gambar background */
+  background-size: cover; /* Mengatur ukuran gambar agar menutupi seluruh area */
+  background-position: center; /* Memposisikan gambar di tengah */
+  position: relative;
+  overflow: hidden; /* Supaya animasi daun tidak keluar dari layar */
+  min-height: 100vh; /* Memastikan hero section memenuhi layar */
+}
+
+.hero h1 {
+  font-family: "Sacramento", cursive;
+  text-shadow: var(--shadow);
+}
+
+.hero a {
+  color: var(--gold);
+  background-color: white;
+  box-shadow: var(--shadow);
+}
+
+.hero a:hover {
+  color: white;
+  background-color: var(--gold);
+}
+
+/* Animasi masuk dari samping */
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px); /* Masuk dari kiri */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Masuk ke posisi aslinya */
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px); /* Masuk dari kanan */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Masuk ke posisi aslinya */
+  }
+}
+
+/* Keyframes untuk gerakan daun yang lebih alami setelah masuk */
+@keyframes leafMovement {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(10px, -10px) rotate(10deg) scale(1.1); /* Gerakan diagonal dan sedikit rotasi */
+  }
+  50% {
+    transform: translate(20px, 10px) rotate(-10deg) scale(1.15); /* Gerakan ke arah lain */
+  }
+  75% {
+    transform: translate(15px, -15px) rotate(15deg) scale(1.05); /* Variasi rotasi dan skala */
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1); /* Kembali ke posisi awal */
+  }
+}
+
+/* Gambar daun di pojok kiri atas */
+.leaf-top {
+  position: absolute;
+  top: -5%; /* Sesuaikan posisi */
+  left: -15%; /* Dari kiri */
+  width: 200px; /* Sesuaikan ukuran sesuai kebutuhan */
+  animation: slideInFromLeft 2s ease-in-out forwards,
+    leafMovement 12s ease-in-out infinite 2s; /* Slide-in dari kiri, lalu gerakan daun */
+}
+
+/* Gambar daun di pojok kanan bawah */
+.leaf-bottom {
+  position: absolute;
+  bottom: -8%; /* Sesuaikan posisi */
+  right: -5%; /* Dari kanan */
+  width: 200px; /* Sesuaikan ukuran sesuai kebutuhan */
+  transform: rotate(180deg);
+  animation: slideInFromRight 2s ease-in-out forwards,
+    leafMovement 12s ease-in-out infinite 2s; /* Slide-in dari kanan, lalu gerakan daun */
+}
